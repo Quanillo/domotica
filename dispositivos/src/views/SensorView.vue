@@ -3,8 +3,12 @@
     <ul v-for="(sensor, index) in sensorList" :key="index">
         <RouterLink 
             :to="{name: 'Sensor', 
-                  params: {name: sensor.name},
-                  query: {sensor}}" 
+                  params: {id: sensor.id},
+                  query: {  name: sensor.name,
+                            type: sensor.type,
+                            room: sensor.room,
+                            param: sensor.param,
+                            value: sensor.value}}" 
         > {{ sensor.name }} </RouterLink>
     </ul>
   </main>
@@ -17,12 +21,14 @@ const sensorList = [
     name: 'termostato',
     type: 'Sensor',
     room: 'Salon',
-    temp: "20"},
+    param: "temp",
+    value: 20},
     {id: 2,
-    name: 'movimiento',
+    name: 'luz',
     type: 'Sensor',
     room: 'Salon',
-    detected: false}
+    param: 'lux',
+    value: 200}
 ]
 
 //en query desestructurar el objeto
