@@ -15,10 +15,20 @@ const router = createRouter({
       component: () => import('../views/SensorView.vue')
     },
     {
-      path: '/sensor/:id',
+      path: '/Sensor/:id',
       name: 'Sensor',
       component: () => import('../components/Sensor.vue'),
-  },
+    },
+    {
+      path: '/EjecutorList',
+      name: 'EjecutorList',
+      component: () => import('../views/EjecutorView.vue')
+    },
+    {
+      path: '/Ejecutor/:id',
+      name: 'Ejecutor',
+      component: () => import('../components/Ejecutor.vue'),
+    },
   ]
 })
 

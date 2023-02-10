@@ -35,8 +35,12 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore()
 
 //CRUD
-export const imFirebase = () => console.log('firebase');
 
 export const getDocuments = (ref) => getDocs(collection(db, ref));
 
 export const onGetDocuments = (ref, callback) => onSnapshot(collection(db, ref), callback);
+
+export const getDispositivosLeaked = (ref, campo, valor) => 
+  getDocs(query(collection(db, ref), where(campo,"==", valor)))
+
+

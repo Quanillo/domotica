@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h1>Hello dispositivos</h1>
+      <h1>Mis dispositivos</h1>
     </div>
 </template>
 

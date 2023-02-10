@@ -11,12 +11,27 @@
                             value: sensor.value}}" 
         > {{ sensor.name }} </RouterLink>
     </ul>
+    <button @click="toHome">back</button>
   </main>
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+import { defineProps, reactive } from "vue";
+import { useSensores } from '@/stores/dispositivos.js'
 
-const sensorList = [
+const sensoresP = useSensores()
+
+const router = useRouter();
+
+const toHome = () => router.push({
+    name:'home',
+});
+
+console.log(sensoresP.sensoresList)
+
+/*
+const sensorList = ref([
     {id: 1,
     name: 'termostato',
     type: 'Sensor',
@@ -29,7 +44,5 @@ const sensorList = [
     room: 'Salon',
     param: 'lux',
     value: 200}
-]
-
-//en query desestructurar el objeto
+]*/
 </script>

@@ -10,5 +10,10 @@ import { RouterLink, RouterView } from 'vue-router'
 
 
 <style scoped>
-
+  main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
 </style>
