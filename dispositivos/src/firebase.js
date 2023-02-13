@@ -40,6 +40,9 @@ export const getDocuments = (ref) => getDocs(collection(db, ref));
 
 export const onGetDocuments = (ref, callback) => onSnapshot(collection(db, ref), callback);
 
+export const onGetDispositivoLeaked = (field, ref, callback) => 
+  onSnapshot(query(collection(db, "dispositivos"), where(field,"==", ref)), callback);
+
 
 const qs = query(collection(db, "dispositivos"), where("type","==", "sensor"))
 export const getSensoresFB = (callback) => onSnapshot(qs, callback)
@@ -47,24 +50,3 @@ export const getSensoresFB = (callback) => onSnapshot(qs, callback)
 const qe = query(collection(db, "dispositivos"), where("type","==", "ejecutor"))
 export const getEjecutoresFB = (callback) => onSnapshot(qe, callback)
 
-/*
-export const getSensoresFB2 = onSnapshot(q, (querySnapshot) =>{
-  const dispositivos = []
-  querySnapshot.forEach((doc) => {
-    dispositivos.push(doc.data())
-  })
-  //console.log(dispositivos)
-})
-
-
-
-
-  const q = query(collection(db, "cities"), where("state", "==", "CA"));
-  const unsubscribe = onSnapshot(q, (querySnapshot) => {
-    const cities = [];
-    querySnapshot.forEach((doc) => {
-        cities.push(doc.data().name);
-    });
-    console.log("Current cities in CA: ", cities.join(", "));
-  });
-  */
