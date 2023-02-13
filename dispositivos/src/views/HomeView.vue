@@ -18,7 +18,6 @@ const router = useRouter()
 const sensoresP = useSensores()
 
 const toSensores = () => {
-  getSensores()
   router.push({
     name:'SensorList',
   })
@@ -28,7 +27,6 @@ const toEjecutores = () => router.push({
     name:'EjecutorList',
 });
 
-console.log(sensoresP.sensoresList)
 
 </script>
 

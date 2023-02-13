@@ -4,11 +4,7 @@
         <RouterLink 
             :to="{name: 'Sensor', 
                   params: {id: sensor.id},
-                  query: {  name: sensor.name,
-                            type: sensor.type,
-                            room: sensor.room,
-                            param: sensor.param,
-                            value: sensor.value}}" 
+                  }"
         > {{ sensor.name }} </RouterLink>
     </ul>
     <button @click="toHome">back</button>
@@ -27,7 +23,6 @@ const toHome = () => router.push({
     name:'home',
 });
 
-
 /*
 const sensorList = ref([
     {id: 1,
@@ -42,5 +37,12 @@ const sensorList = ref([
     room: 'Salon',
     param: 'lux',
     value: 200}
-]*/
+]
+
+query: {  name: sensor.name,
+                            type: sensor.type,
+                            room: sensor.room,
+                            param: sensor.param,
+                            value: sensor.value}
+*/
 </script>

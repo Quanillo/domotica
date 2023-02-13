@@ -32,7 +32,7 @@ const firebaseConfig = {
 
 //Conectamos con la base de datos
 const app = initializeApp(firebaseConfig);
-const db = getFirestore()
+const db = getFirestore(app)
 
 //CRUD
 
@@ -41,18 +41,24 @@ export const getDocuments = (ref) => getDocs(collection(db, ref));
 export const onGetDocuments = (ref, callback) => onSnapshot(collection(db, ref), callback);
 
 
-const q = query(collection(db, "dispositivos"), where("type","==", "sensor"))
+const qs = query(collection(db, "dispositivos"), where("type","==", "sensor"))
+export const getSensoresFB = (callback) => onSnapshot(qs, callback)
 
-const getSensoresFB = onSnapshot(q, (querySnapshot) =>{
+const qe = query(collection(db, "dispositivos"), where("type","==", "ejecutor"))
+export const getEjecutoresFB = (callback) => onSnapshot(qe, callback)
+
+/*
+export const getSensoresFB2 = onSnapshot(q, (querySnapshot) =>{
   const dispositivos = []
   querySnapshot.forEach((doc) => {
     dispositivos.push(doc.data())
   })
+  //console.log(dispositivos)
 })
 
-export const SensoresFb = () => getSensoresFB
 
-/*
+
+
   const q = query(collection(db, "cities"), where("state", "==", "CA"));
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
     const cities = [];
