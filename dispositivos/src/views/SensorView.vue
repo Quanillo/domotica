@@ -1,6 +1,6 @@
 <template>
   <main>
-    <ul v-for="(sensor, index) in sensorList" :key="index">
+    <ul v-for="(sensor, index) in sensoresP.sensoresList" :key="index">
         <RouterLink 
             :to="{name: 'Sensor', 
                   params: {id: sensor.id},
@@ -17,7 +17,6 @@
 
 <script setup>
 import { useRouter } from 'vue-router';
-import { defineProps, reactive } from "vue";
 import { useSensores } from '@/stores/dispositivos.js'
 
 const sensoresP = useSensores()
@@ -28,7 +27,6 @@ const toHome = () => router.push({
     name:'home',
 });
 
-console.log(sensoresP.sensoresList)
 
 /*
 const sensorList = ref([

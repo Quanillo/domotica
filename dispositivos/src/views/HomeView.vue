@@ -13,13 +13,12 @@
 import Home from '../components/Home.vue'
 import { useRouter } from 'vue-router';
 import { useSensores } from '@/stores/dispositivos.js'
-import { getDispositivosLeaked } from '../firebase'
 
 const router = useRouter()
 const sensoresP = useSensores()
 
-const toSensores = async () => {
-  await getSensores()
+const toSensores = () => {
+  getSensores()
   router.push({
     name:'SensorList',
   })
@@ -29,12 +28,7 @@ const toEjecutores = () => router.push({
     name:'EjecutorList',
 });
 
-const getSensores = async() => {
-  const sensores = await getDispositivosLeaked('dispositivos', 'type', 'sensor')
-  const sensoresFB = []
-  sensores.docs.map(x=>sensoresFB.push(x.data()))
-  sensoresP.addSensores(sensoresFB)
-}
+console.log(sensoresP.sensoresList)
 
 </script>
 

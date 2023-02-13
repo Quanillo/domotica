@@ -6,5 +6,5 @@ export const useSensores = defineStore("sensores", () => {
   const addSensores = (sensores) => sensoresList.value = sensores; 
 
 
-  return { sensores, addSensores };
+  return { sensoresList, addSensores };
 });
