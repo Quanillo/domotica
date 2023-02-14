@@ -44,6 +44,7 @@ export const onGetDispositivoLeaked = (field, ref, callback) =>
   onSnapshot(query(collection(db, "dispositivos"), where(field,"==", ref)), callback);
 
 
+//obsoletos
 const qs = query(collection(db, "dispositivos"), where("type","==", "sensor"))
 export const getSensoresFB = (callback) => onSnapshot(qs, callback)
 

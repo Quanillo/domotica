@@ -1,12 +1,12 @@
 <template>
   <main>
-    <ul v-for="(sensor, index) in sensoresP.sensoresList" :key="index">
+    <div v-for="(sensor, index) in sensoresP.sensoresList" :key="index">
         <RouterLink 
             :to="{name: 'Sensor', 
                   params: {id: sensor.id},
                   }"
         > {{ sensor.name }} </RouterLink>
-    </ul>
+    </div>
     <button @click="toHome">back</button>
   </main>
 </template>
@@ -22,27 +22,36 @@ const router = useRouter();
 const toHome = () => router.push({
     name:'home',
 });
-
-/*
-const sensorList = ref([
-    {id: 1,
-    name: 'termostato',
-    type: 'Sensor',
-    room: 'Salon',
-    param: "temp",
-    value: 20},
-    {id: 2,
-    name: 'luz',
-    type: 'Sensor',
-    room: 'Salon',
-    param: 'lux',
-    value: 200}
-]
-
-query: {  name: sensor.name,
-                            type: sensor.type,
-                            room: sensor.room,
-                            param: sensor.param,
-                            value: sensor.value}
-*/
 </script>
+
+<style scoped>
+  main{
+    padding: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  button{
+    padding: 1em;
+    cursor: pointer;
+    outline: 0;
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 16px;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;                
+  }
+  button:hover {
+    color: #fff;
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+  }
+</style>
