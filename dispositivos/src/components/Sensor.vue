@@ -5,21 +5,29 @@
         <p><b>Room: </b>{{ sensoresP.getSensor(route.params.id).room }}</p>
         <p><b>Param: </b>{{ sensoresP.getSensor(route.params.id).param }}</p>
         <p><b>Value: </b>{{ sensoresP.getSensor(route.params.id).value }}</p>
+        <input type="number" v-model="newValue">
+        <button @click="changeValue">change</button>
     </div>
     <button @click="toSensores">back</button>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useSensores } from '@/stores/dispositivos.js'
+import { updateDocument } from '../firebase'
 
 const sensoresP = useSensores()
 const route = useRoute();
 const router = useRouter();
+const newValue = ref(0)
 
 const toSensores = () => router.push({
     name:'SensorList',
 });
+
+const changeValue = () => updateDocument('dispositivos', route.params.id, newValue.value)
+
 </script>
 <style>
   div{

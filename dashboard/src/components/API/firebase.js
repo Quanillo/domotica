@@ -14,25 +14,28 @@ import {
   getDoc,
   updateDoc,
   query,
-  where
+  where,
 } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-firestore.js";
-// Your web app's Firebase configuration
-const firebaseConfig = {
 
+
+// Your web app's Firebase configuration
+
+const firebaseConfig = {
   apiKey: import.meta.env.VITE_FB_API_KEY,
-  //"AIzaSyDl81dGE7Yp4tMus-LbHRzA8KT3QmNPVW0",
   authDomain: "domotica-caf63.firebaseapp.com",
   projectId: "domotica-caf63",
   storageBucket: "domotica-caf63.appspot.com",
   messagingSenderId: "238720006287",
-  appId: "1:238720006287:web:9d6655269c05167e9898fa",
-  measurementId: "G-P5WRDBW2E1"
-
+  appId: "1:238720006287:web:f2eaca727555067b9898fa",
+  measurementId: "G-BN9W03ZEL4"
 };
 
 //Conectamos con la base de datos
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
+
+//User
+
 
 //CRUD
 
@@ -46,11 +49,4 @@ export const onGetDispositivoLeaked = (field, ref, callback) =>
 export const updateDocument = (ref, id, value) => updateDoc(doc(db, ref, id),{
   value: value
 });
-
-//obsoletos
-const qs = query(collection(db, "dispositivos"), where("type","==", "sensor"))
-export const getSensoresFB = (callback) => onSnapshot(qs, callback)
-
-const qe = query(collection(db, "dispositivos"), where("type","==", "ejecutor"))
-export const getEjecutoresFB = (callback) => onSnapshot(qe, callback)
 
