@@ -18,25 +18,38 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../stores/user'
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getUser } from '../components/API/firebase'
 
 const router = useRouter()
 const userP = useUserStore()
 
 const name = ref('')
 const pass = ref('')
-const err = ref('')
+let err = ref('')
 
-const auth = getAuth();
 const setMainUser = async () => {
-    await signInWithEmailAndPassword(auth, email, password)
-    try{
-      userP.setUser(userCredential.user) 
+    const qs = await getUser(name.value)
+    if(qs.size == 1){
+        qs.forEach((doc) => {
+            if(doc.data().pass === pass.value){
+                const aux = doc.data()
+                aux.id = doc.id
+                userP.setUser(aux)
+                router.push({path: '/'}) 
+            }
+            else{
+                err.value = 'Contraseña incorrecta'
+            }
+
+        });
     }
-    catch{
-        err.value = 'algo salio mal'
+    else{
+        err.value = 'Usuario incorrecto'
     }
 }
+
+
+
 </script>
 
 

@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink, RouterView } from 'vue-router'
 import { useUserStore } from '../stores/user'
 const userP = useUserStore()
 console.log(userP.user)
@@ -7,6 +8,12 @@ console.log(userP.user)
 
 <template>
   <main>
-    <p>holis</p>
+    <header v-if="userP.user != null">
+      <nav>
+        <RouterLink to="/Dashboard">Dashboard</RouterLink>
+        <RouterLink to="/Options">Options</RouterLink>
+      </nav>
+    </header>
+  <RouterView />
   </main>
 </template>

@@ -38,6 +38,7 @@ const db = getFirestore(app)
 
 
 //CRUD
+export const getUser = (ref)=> getDocs(query(collection(db, "usuarios"), where("name","==", ref)))
 
 export const getDocuments = (ref) => getDocs(collection(db, ref));
 
