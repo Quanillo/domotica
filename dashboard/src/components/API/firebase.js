@@ -38,14 +38,16 @@ const db = getFirestore(app)
 
 
 //CRUD
-export const getUser = (ref)=> getDocs(query(collection(db, "usuarios"), where("name","==", ref)))
+export const getUser = (ref, callback)=> onSnapshot(query(collection(db, "usuarios"), where("name","==", ref)), callback)
+
+export const addUserDB = async (user) => await addDoc(collection(db, "usuarios"), user);
 
 export const getDocuments = (ref) => getDocs(collection(db, ref));
 
 export const onGetDocuments = (ref, callback) => onSnapshot(collection(db, ref), callback);
 
-export const onGetDispositivoLeaked = (field, ref, callback) => 
-  onSnapshot(query(collection(db, "dispositivos"), where(field,"==", ref)), callback);
+export const onGetDispositivoLeaked = (user, callback) => 
+  onSnapshot(query(collection(db, "dispositivos"),  where("user","==", user)), callback);
 
 export const updateDocument = (ref, id, value) => updateDoc(doc(db, ref, id),{
   value: value

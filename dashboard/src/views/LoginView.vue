@@ -1,11 +1,11 @@
 <template>
     <div v-if="showLogin">
-        <Login />
         <button @click="showLogin = false">Sing Up</button>
+        <Login />
     </div>
     <div v-else>
-        <SingUp />
         <button @click="showLogin = true">Log In</button>
+        <SingUp @showLogin="showLogin = true"/>
     </div>
     
 </template>

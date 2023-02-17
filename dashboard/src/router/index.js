@@ -12,7 +12,20 @@ const router = createRouter({
     {
       path: '/Login',
       name: 'Login',
-      component: () => import('../views/LoginView.vue')
+      component: () => import('../views/LoginView.vue'),
+      children: [
+        {
+            path:'login',
+            name: 'login',
+            component: () => import('../components/Login.vue')
+        },
+        {
+            path:'singup',
+            name: 'singup',
+            component: () => import('../components/SingUp.vue')
+            
+        }
+      ]
     },
     {
       path: '/Dashboard',

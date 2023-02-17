@@ -27,25 +27,26 @@ const name = ref('')
 const pass = ref('')
 let err = ref('')
 
-const setMainUser = async () => {
-    const qs = await getUser(name.value)
-    if(qs.size == 1){
-        qs.forEach((doc) => {
+const setMainUser = () => {
+    getUser(name.value, (docs)=>{
+        if (docs.size ==1){
+            docs.forEach(doc=>{
             if(doc.data().pass === pass.value){
                 const aux = doc.data()
                 aux.id = doc.id
                 userP.setUser(aux)
-                router.push({path: '/'}) 
+                if(userP.user != null)
+                    router.push({path: '/Options'})
             }
             else{
                 err.value = 'Contraseña incorrecta'
             }
+            })
+        }
+    })
+    
 
-        });
-    }
-    else{
-        err.value = 'Usuario incorrecto'
-    }
+    
 }
 
 

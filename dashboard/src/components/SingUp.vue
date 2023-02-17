@@ -1,12 +1,23 @@
 <script setup>
 import { ref } from 'vue';
+import { addUserDB } from './API/firebase'
+
+const emits = defineEmits(['showLogin'])
  
 const name = ref('')
 const pass = ref('')
 const pass2 = ref('')
 const err = ref('')
 
-
+const addUser = () => {
+    if(pass.value == pass2.value){
+        addUserDB({name: name.value, pass: pass.value, rooms: []})
+        emits('showLogin')
+    }
+    else{
+        err.value='Las contraseñas no coinciden'
+    }
+}
 </script>
 
 <template>
