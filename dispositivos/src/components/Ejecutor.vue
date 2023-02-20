@@ -3,8 +3,6 @@
       <p><b>Nombre: </b>{{ ejecutoresP.getEjecutor(route.params.id).name }}</p>
       <p><b>ID: </b>{{ route.params.id }}</p>
       <p><b>Room: </b>{{ ejecutoresP.getEjecutor(route.params.id).room }}</p>
-      <p><b>action: </b>{{ ejecutoresP.getEjecutor(route.params.id).action }}</p>
-      <p><b>Value: </b>{{ ejecutoresP.getEjecutor(route.params.id).value }}</p>
       <p><b>State: </b>{{ ejecutoresP.getEjecutor(route.params.id).state }}</p>
 
   </div>

@@ -15,6 +15,8 @@ import {
   updateDoc,
   query,
   where,
+  arrayUnion,
+  arrayRemove
 } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-firestore.js";
 
 
@@ -38,9 +40,13 @@ const db = getFirestore(app)
 
 
 //CRUD
+export const deleteDocument = (ref, id) => deleteDoc(doc(db, ref, id));
+
 export const getUser = (ref, callback)=> onSnapshot(query(collection(db, "usuarios"), where("name","==", ref)), callback)
 
 export const addUserDB = async (user) => await addDoc(collection(db, "usuarios"), user);
+
+export const addDispositivo = async (dispositivo) => addDoc(collection(db, "dispositivos"), dispositivo)
 
 export const getDocuments = (ref) => getDocs(collection(db, ref));
 
@@ -53,3 +59,21 @@ export const updateDocument = (ref, id, value) => updateDoc(doc(db, ref, id),{
   value: value
 });
 
+export const updateEjecutor = (ref, id, value) => updateDoc(doc(db, ref, id),{
+  state: value
+});
+
+export const onGetRooms = (user, callback) => 
+  onSnapshot(query(collection(db, "usuarios"),  where("name","==", user)), callback);
+
+export const addRoom = (ref, id, room) => updateDoc(doc(db, ref, id),{
+  rooms: arrayUnion(room)
+});
+
+export const removeRoom = (ref, id, room) => updateDoc(doc(db, ref, id),{
+  rooms: arrayRemove(room)
+});
+
+export const updateRoom = (ref, id, value) => updateDoc(doc(db, ref, id),{
+  room: value
+});

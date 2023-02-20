@@ -12,21 +12,36 @@
                 <p>{{ dispositivo.value }}</p>
             </div>
             <p><b>Ejecutores</b></p>
-            <div class="dispositivo" v-for="dispositivo in dispList.filter(x=>x.room == room && x.type == 'ejecutor')">
+            <div class="dispositivo" v-for="(dispositivo, index) in dispList.filter(x=>x.room == room && x.type == 'ejecutor')"  :key="index">
                 <p>{{ dispositivo.name }}</p>
-                <p>{{ dispositivo.action }}</p>
-                <p>{{ dispositivo.value }}</p>
                 <p>{{ dispositivo.state }}</p>
+                <button @click="updateEjecutor('dispositivos', dispositivo.id, true)">on</button>
+                <button @click="updateEjecutor('dispositivos', dispositivo.id, false)">off</button>
+            </div>
+        </div>
+        <div>
+            <h2>No room</h2>
+            <div class="dispositivo" v-for="dispositivo in dispList.filter(x=>x.room == '' && x.type == 'sensor')">
+                <p>{{ dispositivo.name }}</p>
+                <p>{{ dispositivo.param }}</p>
+                <p>{{ dispositivo.value }}</p>
+            </div>
+            <p><b>Ejecutores</b></p>
+            <div class="dispositivo" v-for="(dispositivo, index) in dispList.filter(x=>x.room == '' && x.type == 'ejecutor')"  :key="index">
+                <p>{{ dispositivo.name }}</p>
+                <p>{{ dispositivo.state }}</p>
+                <button @click="updateEjecutor('dispositivos', dispositivo.id, true)">on</button>
+                <button @click="updateEjecutor('dispositivos', dispositivo.id, false)">off</button>
             </div>
         </div>
     </div>
-</template>
+</template> 
 
 <script setup>
 import { ref } from 'vue';
 import { onMounted } from 'vue';
 import { useUserStore } from '../stores/user'
-import { onGetDispositivoLeaked } from '../components/API/firebase'
+import { onGetDispositivoLeaked, updateEjecutor } from '../components/API/firebase'
 
 const userP = useUserStore()
 
@@ -36,11 +51,15 @@ onMounted(() => {
     onGetDispositivoLeaked(userP.user.name, (docs)=>{
         const list = []
         docs.forEach(x =>{
-            list.push(x.data())
+            const disp = x.data()
+            disp.id = x.id
+            list.push(disp)
         })
         dispList.value = list
     })
 })
+
+
 </script>
 
 <style  scoped>
