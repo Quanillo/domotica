@@ -6,16 +6,18 @@
   </header>
   <div v-if="userP.user != null" >
     <div class="nav-menu">
-      <nav>
-        <RouterLink to="/Dashboard">Dashboard</RouterLink>
-        <RouterLink to="/Options">Options</RouterLink>
-        <a @click="showModal = true">Log Out</a>
+      <nav class="nav">
+        <div class="mb-2 sm:mb-0">
+          <a class="home" href="">Home</a>
+        </div>
+        <RouterLink class="navLink" to="/Dashboard">Dashboard</RouterLink>
+        <RouterLink class="navLink" to="/Options">Options</RouterLink>
+        <a class="logout" @click="showModal = true">Log Out</a>
       </nav>
-    </div>
-
+    </div >
       <EventModal v-if="showModal" @closeModal="showModal = false" @logOut="logOut" ></EventModal>
       <RouterView />
-    </div>
+  </div>
 
 </template>
 
@@ -40,29 +42,17 @@ const logOut = () => {
 </script>
 
 <style scoped>
-.nav-menu a {
-  color: black;
-  text-decoration: none;
-  margin-right: 2rem;
-}
 
-.nav-menu a:last-child {
-  background: #4ad295;
-  padding: 0.25rem 0.75rem;
-  border-radius: 0.2rem;
+.nav{
+  @apply  flex flex-row text-center sm:flex-row sm:text-left sm:justify-between py-4 px-6 bg-white shadow sm:items-baseline w-full;
 }
-.nav-menu a:last-child:hover {
-  cursor: pointer;
+.navLink{
+  @apply text-lg no-underline text-zinc-800	 hover:text-sky-600 ml-2;
 }
-.menu-icon img {
-  width: 30px;
-  height: 30px;
-  border-radius: 2px;
+.home{
+  @apply text-2xl no-underline text-zinc-800 hover:text-sky-600;
 }
-.router-link-active {
-  color: gray !important;
-}
-.router-link-exact-active {
-  color:red;
+.logout{
+  @apply bg-sky-600 text-lg no-underline text-slate-200 p-2 px-4 rounded-lg hover:text-sky-300 hover:cursor-pointer;
 }
 </style>
