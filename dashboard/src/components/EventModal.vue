@@ -1,4 +1,5 @@
 <template>
+
   <div class="modal-overlay" @click="$emit('closeModal')">
     <div class="modal" @click.stop>
       <p>¿Estás seguro de cerrar sesión?</p>
@@ -44,34 +45,19 @@ const logOut = () => emits('logOut')
   border-radius: 20px;
 }
 .close {
-  height: 100%;
-  margin-top: 8%;
-  margin-left: 2%;
-  cursor: pointer;
+  @apply h-96 cursor-pointer pt-16 pl-5;
+
 }
 
 .close-img {
-  width: 25px;
-}
-
-h6 {
-  font-weight: 500;
-  font-size: 28px;
+  @apply w-7 
 }
 
 p {
-  font-size: 16px;
-  margin: .5em;
+  @apply p-20
 }
 
 button {
-  background: #4ad295;
-  width: 150px;
-  height: 40px;
-  color: #FAFCFF;
-  font-size: 14px;
-  border-radius: 16px;
-  margin-top: 50px;
-  cursor: pointer;
+  @apply bg-sky-600 text-lg no-underline text-slate-200 p-2 px-4 rounded-lg hover:text-sky-300 hover:cursor-pointer;
 }
 </style>

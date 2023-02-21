@@ -22,13 +22,13 @@ const addUser = () => {
 
 <template>
     <div>
-        <div>
-            <h1>Registro</h1>
-            <p>Nombre de usuario</p>
+        <div class="loginContainer">
+            <h1>Sing Up</h1>
+            <p>User name</p>
             <input v-model.trim="name"  type="text">
-            <p>Contraseña</p>
+            <p>Password</p>
             <input v-model.trim="pass"  type="password">
-            <p>Repite contraseña</p>
+            <p>Repeat password</p>
             <input v-model.trim="pass2"  type="password">
             <button @click="addUser">enviar</button>
         </div>
@@ -40,5 +40,16 @@ const addUser = () => {
 
 
 <style  scoped>
-
+button{
+    @apply bg-sky-600 text-lg no-underline text-slate-200 p-0.5 px-4 rounded-lg hover:text-sky-300 hover:cursor-pointer mt-10;
+}
+input{
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
+}
+.loginContainer{
+    @apply flex flex-col items-center;
+}
+p{
+    @apply mt-10;
+}
 </style>

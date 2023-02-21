@@ -1,11 +1,11 @@
 <template>
-    <div v-if="showLogin">
+    <div class="divLogin" v-if="showLogin">
+        <Login class="loginContainer" />
         <button @click="showLogin = false">Sing Up</button>
-        <Login />
     </div>
-    <div v-else>
+    <div class="divLogin" v-else>
+        <SingUp class="loginContainer" @showLogin="showLogin = true"/>
         <button @click="showLogin = true">Log In</button>
-        <SingUp @showLogin="showLogin = true"/>
     </div>
     
 </template>
@@ -21,5 +21,13 @@ const showLogin = ref(true)
 
 
 <style  scoped>
-
+.divLogin{
+    @apply flex flex-col items-center pt-20
+}
+.loginContainer{
+    @apply p-36
+}
+button{
+    @apply bg-sky-600 text-lg no-underline text-slate-200 p-0.5 px-4 rounded-lg hover:text-sky-300 hover:cursor-pointer;
+}
 </style>

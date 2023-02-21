@@ -1,6 +1,4 @@
 <template>
-    <h1>Options</h1>
-    
     <p>Welcome {{ userP.user.name }}, this is your options panel</p>
 
     <RoomsOptions />

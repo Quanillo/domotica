@@ -1,6 +1,4 @@
 <template>
-    <h1>Dashboard</h1>
-
     <p>Welcome {{ userP.user.name }}, this is your dashboard panel</p>
     <div v-for="room in userP.user.rooms">
         <div class="room">

@@ -61,5 +61,10 @@ const deleteRoom = () => {
 </script>
 
 <style  scoped>
-
+button{
+    @apply bg-sky-600 text-lg no-underline text-slate-200 p-0.5 px-4 rounded-lg hover:text-sky-300 hover:cursor-pointer;
+}
+input{
+    @apply block mb-2 text-sm font-medium text-gray-900 dark:text-white;
+}
 </style>
