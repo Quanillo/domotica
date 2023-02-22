@@ -1,5 +1,8 @@
 <template>
-
+<div class="containerOptions">
+    <div class="title">
+        <h1>Dispositivos options</h1>
+    </div>
     <div>
         <h3>Add dispositivo</h3>
         <p>Name</p>
@@ -20,24 +23,32 @@
                 <option>temp</option>
                 <option>lux</option>
             </select>
-            <button @click="addSensor">add</button>
+            <div class="buttons">
+                <button @click="addSensor">add</button>
+            </div>
         </div>
-        <div v-if="newDispType == 'ejecutor'">
+        <div class="buttons" v-if="newDispType == 'ejecutor'">
             <button @click="addEjecutor">add</button>
         </div>
     </div>
 
     <div>
         <h3>Delete dispositivo</h3>
+        <p>Room</p>
         <select name="rooms" id="rooms" v-model="roomSelected">
             <option v-for="room in roomList">{{ room }}</option>
         </select>
+        <p>Name</p>
         <select name="dispositivos" id="dispositivos" v-model="dispSelected">
             <option v-for="(disp, index) in dispList.filter(x=>x.room == roomSelected)" :key="index" v-bind:value="disp">{{ disp.name }}</option>
         </select>
-        <button @click="deleteDisp">delete</button>
-        <button @click="updateDisp">Update</button>
+        <div class="buttons">
+            <button @click="deleteDisp">delete</button>
+            <button @click="updateDisp">Update</button>
+        </div>
     </div>
+</div>
+
 
 </template>
 
@@ -103,5 +114,29 @@ const deleteDisp = () => {
 </script>
 
 <style  scoped>
+button{
+    @apply w-auto bg-sky-600 text-lg no-underline text-slate-200 p-0.5 px-4 rounded-lg hover:text-sky-300 hover:cursor-pointer;
+}
+input{
+    @apply appearance-none block w-full bg-sky-50 text-gray-700 border border-sky-200 rounded py-3 px-4 mb-4 leading-tight focus:outline-none focus:bg-white focus:border-sky-600
+}
+h1{
+    @apply text-sky-600 text-2xl text-center 
+}
 
+.containerOptions{
+    @apply flex flex-col p-2 border-2 rounded-xl border-sky-200 hover:border-sky-600  bg-slate-100
+}
+.title{
+    @apply bg-sky-200 p-2 rounded-t-lg
+}
+.buttons{
+    @apply flex flex-row place-content-center p-4
+}
+h3{
+    @apply text-center p-2
+}
+select{
+    @apply block appearance-none w-full bg-sky-50 border border-sky-200 text-gray-700 py-3 px-4 pr-8 mb-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-sky-600
+}
 </style>

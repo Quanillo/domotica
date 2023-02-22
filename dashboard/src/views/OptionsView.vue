@@ -1,9 +1,11 @@
 <template>
     <p>Welcome {{ userP.user.name }}, this is your options panel</p>
 
-    <RoomsOptions />
+    <div class="container">
+        <RoomsOptions />
+        <DispositivoOptions />
+    </div>
 
-    <DispositivoOptions />
 
 </template>
 
@@ -18,5 +20,7 @@ const userP = useUserStore()
 </script>
 
 <style  scoped>
-
+.container{
+    @apply flex flex-row place-content-around pt-10
+}
 </style>

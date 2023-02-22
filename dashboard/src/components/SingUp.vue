@@ -41,15 +41,27 @@ const addUser = () => {
 
 <style  scoped>
 button{
-    @apply bg-sky-600 text-lg no-underline text-slate-200 p-0.5 px-4 rounded-lg hover:text-sky-300 hover:cursor-pointer mt-10;
+    @apply  bg-sky-600 text-lg no-underline text-slate-200 p-0.5 px-4  rounded-lg hover:text-sky-300 hover:cursor-pointer;
 }
 input{
-    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
+    @apply appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500
 }
-.loginContainer{
-    @apply flex flex-col items-center;
+h1{
+    @apply text-sky-600 text-2xl text-center
 }
-p{
-    @apply mt-10;
+.buttons{
+    @apply flex flex-col items-center
+}
+.containerRoom{
+    @apply flex flex-col p-3 border-2 rounded-xl border-sky-200 bg-slate-100
+}
+.title{
+    @apply bg-sky-200 p-2 rounded-t-lg
+}
+h3{
+    @apply text-center p-2
+}
+select{
+    @apply block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500
 }
 </style>
