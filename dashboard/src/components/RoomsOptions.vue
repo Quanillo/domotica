@@ -16,7 +16,7 @@
         <h3>Delete room</h3>
         <p>Name</p>
         <select name="rooms" id="rooms" v-model="selectedRoom">
-            <option v-for="room in roomList">{{ room }}</option>
+            <option v-for="room in props.roomList">{{ room }}</option>
         </select><br>
         <div class="buttons">
             <button @click="deleteRoom">delete</button>
@@ -26,33 +26,19 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { useUserStore } from '../stores/user'
-import { addRoom, onGetRooms, removeRoom, updateRoom, onGetDispositivoLeaked } from '../components/API/firebase';
+import { addRoom, removeRoom, updateRoom } from '../components/API/firebase';
 
 const userP = useUserStore()
 
-const dispList = ref([])
-const newRoom = ref('')
-let roomList = ref([])
-const selectedRoom = ref('')
-
-onMounted(() => {
-    onGetRooms(userP.user.name, (docs)=>{
-        docs.forEach(x =>{
-            roomList.value = x.data().rooms
-        })
-    }),
-    onGetDispositivoLeaked(userP.user.name, (docs)=>{
-        const list = []
-        docs.forEach(x =>{
-            const disp = x.data()
-            disp.id = x.id
-            list.push(disp)
-        })
-        dispList.value = list
-    })
+const props = defineProps({
+  dispList: Array,
+  roomList: Array
 })
+
+const newRoom = ref('')
+const selectedRoom = ref('')
 
 const pushRoom = () => {
     if(newRoom.value !== ''){
@@ -63,7 +49,7 @@ const pushRoom = () => {
 
 const deleteRoom = () => {
     removeRoom('usuarios', userP.user.id, selectedRoom.value)
-    dispList.value.filter(x=>x.room == selectedRoom.value).map(disp=>{
+    props.dispList.value.filter(x=>x.room == selectedRoom.value).map(disp=>{
         updateRoom('dispositivos', disp.id, '')
     })
     selectedRoom.value = ''

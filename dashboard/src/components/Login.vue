@@ -20,13 +20,11 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../stores/user'
-import { getUser, onGetDispositivoLeaked } from '../components/API/firebase'
-import { useDispStore } from '../stores/disp'
+import { getUser } from '../components/API/firebase'
 
 
 const router = useRouter()
 const userP = useUserStore()
-const dispP = useDispStore()
 
 const name = ref('')
 const pass = ref('')
@@ -44,8 +42,6 @@ const setMainUser = () => {
                 const aux = doc.data()
                 aux.id = doc.id
                 userP.setUser(aux)
-                setDisp()
-                console.log(dispP.dispList)
                 if(userP.user != null)
                     router.push({path: '/'})
             }
@@ -61,19 +57,6 @@ const setMainUser = () => {
     }
 }
 
-const setDisp = () =>{
-    console.log('hola')
-    onGetDispositivoLeaked(userP.user.name, (docs) => {
-        const list = []
-        docs.forEach(x => {
-            const disp = x.data()
-            disp.id = x.id
-            list.push(disp)
-        })
-        console.log(list)
-        dispP.setDispositivos(list)
-    })
-}
 </script>
 
 <style  scoped>
@@ -81,7 +64,7 @@ button{
     @apply  bg-sky-600 text-lg no-underline text-slate-200 p-0.5 px-4  rounded-lg hover:text-sky-200 hover:cursor-pointer;
 }
 input{
-    @apply appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500
+    @apply appearance-none block w-full bg-slate-50 text-gray-700 border border-sky-200 rounded py-3 px-4 mb-4 leading-tight focus:outline-none focus:bg-white focus:border-sky-600
 }
 h1{
     @apply text-sky-600 text-2xl text-center

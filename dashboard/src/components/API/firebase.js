@@ -63,6 +63,14 @@ export const updateEjecutor = (ref, id, value) => updateDoc(doc(db, ref, id),{
   state: value
 });
 
+export const updateNameDisp = (ref, id, value) => updateDoc(doc(db, ref, id),{
+  name: value
+});
+
+export const updateRoomDisp = (ref, id, value) => updateDoc(doc(db, ref, id),{
+  room: value
+});
+
 export const onGetRooms = (user, callback) => 
   onSnapshot(query(collection(db, "usuarios"),  where("name","==", user)), callback);
 

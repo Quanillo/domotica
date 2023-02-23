@@ -13,7 +13,10 @@
 
 <script setup>
 import { useUserStore } from '../stores/user'
+
 const userP = useUserStore()
+
+
 
 </script>
 <style  scoped>

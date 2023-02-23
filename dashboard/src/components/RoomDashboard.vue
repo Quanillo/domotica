@@ -1,27 +1,33 @@
 <template>
-    <div v-for="room in userP.user.rooms">
+    <div class="roomContainer"  v-for="room in userP.user.rooms">
         <div class="room">
-            <h2>{{ room }}</h2>
-            <div v-if="dispList.filter(x => x.room == room && x.type == 'sensor').length > 0">
-                <p><b>Sensores</b></p>
+            <div class="title">
+                <h1>{{ room }}</h1>
             </div>
+
             <div class="dispositivo" v-for="dispositivo in dispList.filter(x => x.room == room && x.type == 'sensor')">
                 <p>{{ dispositivo.name }}</p>
                 <p>{{ dispositivo.param }}</p>
                 <p>{{ dispositivo.value }}</p>
             </div>
-            <div v-if="dispList.filter(x => x.room == room && x.type == 'ejecutor').length > 0">
-                <p><b>Ejecutores</b></p>
-            </div>
+
             <div class="dispositivo"
                 v-for="(dispositivo, index) in dispList.filter(x => x.room == room && x.type == 'ejecutor')" :key="index">
                 <p>{{ dispositivo.name }}</p>
                 <p>{{ dispositivo.state }}</p>
-                <div class="inline-flex">
-                    <button @click="updateEjecutor('dispositivos', dispositivo.id, true)" class="buttonOn">
+                <div v-if="dispositivo.state" class="inline-flex">
+                    <button @click="updateOn(dispositivo.id)" class="buttonOnSelected">
                         On
                     </button>
-                    <button @click="updateEjecutor('dispositivos', dispositivo.id, false)" class="buttonOff">
+                    <button @click="updateOff(dispositivo.id)" class="buttonOff">
+                        Off
+                    </button>
+                </div>
+                <div v-else class="inline-flex">
+                    <button @click="updateOn(dispositivo.id)" class="buttonOn">
+                        On
+                    </button>
+                    <button @click="updateOff(dispositivo.id)" class="buttonOffSelected">
                         Off
                     </button>
                 </div>
@@ -32,29 +38,53 @@
 
 <script setup>
 import { useUserStore } from '../stores/user'
-import { useDispStore } from '../stores/disp'
 import { updateEjecutor } from '../components/API/firebase'
 
 const userP = useUserStore()
-const dispP = useDispStore()
 
-const dispList = dispP.dispList
+const props = defineProps({
+  dispList: Array
+})
 
+const updateOff = (id) =>{
+    updateEjecutor('dispositivos', id, false)
+} 
 
+const updateOn = (id) => {
+    updateEjecutor('dispositivos', id, true)
+}
 </script>
 
 <style  scoped>
+.roomContainer{
+    @apply w-96 flex flex-col p-2 m-10 border-2 rounded-xl border-sky-200 hover:border-sky-600  bg-slate-100 
+}
+.title{
+    @apply bg-sky-200 p-2 rounded-t-lg
+}
+h1{
+    @apply text-sky-600 text-2xl text-center 
+}
+.dispositivo{
+    @apply flex flex-row  justify-center p-4 
+}
+.dispositivo:nth-child(even){
+    @apply flex flex-row p-4 bg-slate-200 
+}
+p{
+    @apply text-base px-5
+}
 .buttonOn{ 
-    @apply bg-sky-200  focus:bg-sky-600 focus:text-sky-200 text-sky-600 focus:font-bold py-0.5 px-4 rounded-l 
+    @apply bg-sky-200  text-sky-600  py-0.5 px-4 rounded-l 
 }
 .buttonOff{
-    @apply bg-sky-200 focus:bg-sky-600  focus:text-sky-200 text-sky-600 focus:font-bold py-0.5 px-4 rounded-r
+    @apply bg-sky-200 text-sky-600  py-0.5 px-4 rounded-r
 }
-.room {
-    border: solid black 1px;
+.buttonOnSelected{ 
+    @apply bg-sky-600  text-sky-200 py-0.5 px-4 rounded-l 
+}
+.buttonOffSelected{
+    @apply bg-sky-600  text-sky-200 py-0.5 px-4 rounded-r
 }
 
-.dispositivo {
-    border: solid green 1px;
-}
 </style>

@@ -30,19 +30,16 @@ import { ref } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
 import { useRouter } from 'vue-router'
 import { useUserStore } from './stores/user'
-import { useDispStore } from './stores/disp'
 import LoginView from './views/LoginView.vue';
 import EventModal from './components/EventModal.vue'
 
 const router = useRouter()
 const userP = useUserStore()
-const dispP = useDispStore()
 const showModal = ref(false)
 
 const logOut = () => {
   router.push({path: '/'}) 
   userP.logOut()
-  dispP.clearDispositivos()
   showModal.value = false
 }
 

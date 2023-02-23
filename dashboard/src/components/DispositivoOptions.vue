@@ -36,49 +36,45 @@
         <h3>Delete dispositivo</h3>
         <p>Room</p>
         <select name="rooms" id="rooms" v-model="roomSelected">
-            <option v-for="room in roomList">{{ room }}</option>
+            <option v-for="room in props.roomList">{{ room }}</option>
         </select>
         <p>Name</p>
         <select name="dispositivos" id="dispositivos" v-model="dispSelected">
-            <option v-for="(disp, index) in dispList.filter(x=>x.room == roomSelected)" :key="index" v-bind:value="disp">{{ disp.name }}</option>
+            <option v-for="(disp, index) in props.dispList.filter(x=>x.room == roomSelected)" :key="index" v-bind:value="disp">{{ disp.name }}</option>
         </select>
         <div class="buttons">
             <button @click="deleteDisp">delete</button>
             <button @click="updateDisp">Update</button>
+            <EditDispModal v-if="showModal" :dispSelected="dispSelected" @closeModal="closeModal" ></EditDispModal>
         </div>
     </div>
+
 </div>
 
 
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { useUserStore } from '../stores/user'
-import { onGetRooms, addDispositivo, onGetDispositivoLeaked, deleteDocument } from '../components/API/firebase';
-import { useDispStore } from '../stores/disp'
+import { addDispositivo, deleteDocument } from '../components/API/firebase';
+import EditDispModal from './EditDispModal.vue';
 
 const userP = useUserStore()
-const dispP = useDispStore()
 
-const dispList = dispP.dispList
+const props = defineProps({
+  dispList: Array,
+  roomList: Array
+})
+const showModal = ref(false)
+
 let roomSelected = ref('')
-const dispSelected = ref({})
+const dispSelected = ref(null)
 
-let roomList = ref([])
 const newDispName = ref('')
 const newDispType = ref('')
 const newDispRoom = ref('')
 const newDispParam = ref('')
-
-
-onMounted(() => {
-    onGetRooms(userP.user.name, (docs)=>{
-        docs.forEach(x =>{
-            roomList.value = x.data().rooms
-        })
-    })
-})
 
 const addSensor = () =>{
     if(newDispName.value !== ''){
@@ -117,6 +113,18 @@ const deleteDisp = () => {
     deleteDocument('dispositivos', dispSelected.value.id)
     roomSelected = ''
     dispSelected = {}
+}
+
+const updateDisp = () => {
+    if(roomSelected.value != '' && dispSelected.value != null){
+        showModal.value = true
+    }
+}
+
+const closeModal = () => {
+    showModal.value = false
+    roomSelected.value = ''
+    dispSelected.value = ''
 }
 </script>
 
