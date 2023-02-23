@@ -56,11 +56,13 @@
 import { ref, onMounted } from 'vue';
 import { useUserStore } from '../stores/user'
 import { onGetRooms, addDispositivo, onGetDispositivoLeaked, deleteDocument } from '../components/API/firebase';
+import { useDispStore } from '../stores/disp'
 
 const userP = useUserStore()
+const dispP = useDispStore()
 
-const dispList = ref([])
-const roomSelected = ref('')
+const dispList = dispP.dispList
+let roomSelected = ref('')
 const dispSelected = ref({})
 
 let roomList = ref([])
@@ -75,20 +77,12 @@ onMounted(() => {
         docs.forEach(x =>{
             roomList.value = x.data().rooms
         })
-    }),
-    onGetDispositivoLeaked(userP.user.name, (docs)=>{
-        const list = []
-        docs.forEach(x =>{
-            const disp = x.data()
-            disp.id = x.id
-            list.push(disp)
-        })
-        dispList.value = list
     })
 })
 
 const addSensor = () =>{
-    addDispositivo({
+    if(newDispName.value !== ''){
+        addDispositivo({
         user: userP.user.name,
         name: newDispName.value,
         room: newDispRoom.value,
@@ -96,36 +90,49 @@ const addSensor = () =>{
         param: newDispParam.value,
         value: 0
     })
+    }
+    newDispName.value = ''
+    newDispType.value = ''
+    newDispRoom.value = ''
+    newDispParam.value = ''
 }
 
 const addEjecutor = () =>{
-    addDispositivo({
-        user: userP.user.name,
-        name: newDispName.value,
-        room: newDispRoom.value,
-        type: newDispType.value,
-        state: false,
-    })
+    if(newDispName.value !== ''){
+        addDispositivo({
+            user: userP.user.name,
+            name: newDispName.value,
+            room: newDispRoom.value,
+            type: newDispType.value,
+            state: false,
+        })
+    }
+    newDispName.value = ''
+    newDispType.value = ''
+    newDispRoom.value = ''
+    newDispParam.value = ''
 }
 
 const deleteDisp = () => {
     deleteDocument('dispositivos', dispSelected.value.id)
+    roomSelected = ''
+    dispSelected = {}
 }
 </script>
 
 <style  scoped>
 button{
-    @apply w-auto bg-sky-600 text-lg no-underline text-slate-200 p-0.5 px-4 rounded-lg hover:text-sky-300 hover:cursor-pointer;
+    @apply w-auto bg-sky-600 text-lg no-underline text-slate-200 p-0.5 px-4 rounded-lg hover:text-sky-200 hover:cursor-pointer;
 }
 input{
-    @apply appearance-none block w-full bg-sky-50 text-gray-700 border border-sky-200 rounded py-3 px-4 mb-4 leading-tight focus:outline-none focus:bg-white focus:border-sky-600
+    @apply appearance-none block w-full bg-slate-50 text-gray-700 border border-sky-200 rounded py-3 px-4 mb-4 leading-tight focus:outline-none focus:bg-white focus:border-sky-600
 }
 h1{
     @apply text-sky-600 text-2xl text-center 
 }
 
 .containerOptions{
-    @apply flex flex-col p-2 border-2 rounded-xl border-sky-200 hover:border-sky-600  bg-slate-100
+    @apply w-96 flex flex-col p-2 border-2 rounded-xl border-sky-200 hover:border-sky-600  bg-slate-100
 }
 .title{
     @apply bg-sky-200 p-2 rounded-t-lg
@@ -137,6 +144,6 @@ h3{
     @apply text-center p-2
 }
 select{
-    @apply block appearance-none w-full bg-sky-50 border border-sky-200 text-gray-700 py-3 px-4 pr-8 mb-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-sky-600
+    @apply block appearance-none w-full bg-slate-50 border border-sky-200 text-gray-700 py-3 px-4 pr-8 mb-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-sky-600
 }
 </style>

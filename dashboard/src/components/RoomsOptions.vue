@@ -55,8 +55,10 @@ onMounted(() => {
 })
 
 const pushRoom = () => {
-    addRoom('usuarios', userP.user.id, newRoom.value)
-    newRoom.value = ''
+    if(newRoom.value !== ''){
+        addRoom('usuarios', userP.user.id, newRoom.value)
+        newRoom.value = ''
+    }
 } 
 
 const deleteRoom = () => {
@@ -64,16 +66,17 @@ const deleteRoom = () => {
     dispList.value.filter(x=>x.room == selectedRoom.value).map(disp=>{
         updateRoom('dispositivos', disp.id, '')
     })
+    selectedRoom.value = ''
 }
 
 </script>
 
 <style  scoped>
 button{
-    @apply  bg-sky-600 text-lg no-underline text-slate-200 p-0.5 px-4  rounded-lg hover:text-sky-300 hover:cursor-pointer;
+    @apply  bg-sky-600 text-lg no-underline text-slate-200 p-0.5 px-4  rounded-lg hover:text-sky-200 hover:cursor-pointer;
 }
 input{
-    @apply appearance-none block w-full bg-sky-50 text-gray-700 border border-sky-200 rounded py-3 px-4 mb-4 leading-tight focus:outline-none focus:bg-white focus:border-sky-600
+    @apply appearance-none block w-full  bg-slate-50 text-gray-700 border border-sky-200 rounded py-3 px-4 mb-4 leading-tight focus:outline-none focus:bg-white focus:border-sky-600
 }
 h1{
     @apply text-sky-600 text-2xl text-center
@@ -82,7 +85,7 @@ h1{
     @apply flex flex-col items-center
 }
 .containerRoom{
-    @apply flex flex-col p-2 border-2 rounded-xl border-sky-200 hover:border-sky-600  bg-slate-100
+    @apply w-96 flex flex-col p-2 border-2 rounded-xl border-sky-200 hover:border-sky-600  bg-slate-100
 }
 .title{
     @apply bg-sky-200 p-2 rounded-t-lg
@@ -91,6 +94,6 @@ h3{
     @apply text-center p-2
 }
 select{
-    @apply block appearance-none w-full bg-sky-50 border border-sky-200 text-gray-700 py-3 px-4 pr-8 mb-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-sky-600
+    @apply block appearance-none w-full bg-slate-50 border border-sky-200 text-gray-700 py-3 px-4 pr-8 mb-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-sky-600
 }
 </style>

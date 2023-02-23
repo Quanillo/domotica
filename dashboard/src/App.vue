@@ -1,9 +1,9 @@
 <template>
-  <header>
-    <div v-if="userP.user == null">
+
+    <div v-if="userP.user == null" class="logingDiv">
       <LoginView />
     </div>
-  </header>
+
   <div v-if="userP.user != null" >
     <div class="nav-menu">
       <nav class="nav">
@@ -30,36 +30,41 @@ import { ref } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
 import { useRouter } from 'vue-router'
 import { useUserStore } from './stores/user'
+import { useDispStore } from './stores/disp'
 import LoginView from './views/LoginView.vue';
 import EventModal from './components/EventModal.vue'
 
 const router = useRouter()
 const userP = useUserStore()
+const dispP = useDispStore()
 const showModal = ref(false)
 
 const logOut = () => {
   router.push({path: '/'}) 
   userP.logOut()
+  dispP.clearDispositivos()
   showModal.value = false
 }
 
 </script>
 
 <style scoped>
-
 .nav{
   @apply  flex flex-row text-center sm:flex-row sm:text-left sm:justify-between py-4 px-6 bg-zinc-100 shadow sm:items-baseline w-full;
 }
 .navLink{
-  @apply text-lg no-underline text-zinc-800	 hover:text-sky-600 ml-2 px-5;
+  @apply text-lg no-underline text-zinc-800	 hover:text-sky-200 ml-2 px-5;
 }
 .home{
-  @apply text-2xl no-underline text-zinc-800 hover:text-sky-600 hover:cursor-pointer px-5;
+  @apply text-2xl no-underline text-zinc-800 hover:text-sky-200 hover:cursor-pointer px-5;
 }
 .logout{
-  @apply bg-sky-600 text-lg no-underline text-slate-200 p-2 px-4 rounded-lg hover:text-sky-300 hover:cursor-pointer;
+  @apply bg-sky-600 text-lg no-underline text-slate-200 p-2 px-4 rounded-lg hover:text-sky-200 hover:cursor-pointer;
 }
 .mainDiv{
   @apply flex flex-col items-center pt-10 
+}
+.logingDiv{
+  @apply w-full h-full
 }
 </style>

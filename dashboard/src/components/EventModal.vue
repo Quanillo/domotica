@@ -2,7 +2,8 @@
 
   <div class="modal-overlay" @click="$emit('closeModal')">
     <div class="modal" @click.stop>
-      <p>¿Estás seguro de cerrar sesión?</p>
+      <p>{{ userP.user.name }}, </p>
+      <p class="text">¿Estás seguro de cerrar sesión?</p>
       <button @click="logOut">Log Out</button>
     </div>
     <div class="close" @click="$emit('closeModal')">
@@ -13,6 +14,9 @@
   
 
 <script setup>
+import { useUserStore } from '../stores/user'
+
+const userP = useUserStore()
 const emits = defineEmits(['closeModal', 'logOut'])
 
 const logOut = () => emits('logOut')
@@ -37,8 +41,8 @@ const logOut = () => emits('logOut')
 .modal {
   text-align: center;
   background-color: #FAFCFF;
-  height: 500px;
-  width: 500px;
+  height: 20em;
+  width: 20em;
   margin-top:5%;
   margin-bottom:5%;
   padding: 60px 0;
@@ -48,13 +52,12 @@ const logOut = () => emits('logOut')
   @apply h-96 cursor-pointer pt-16 pl-5;
 
 }
-
 .close-img {
   @apply w-7 
 }
 
-p {
-  @apply p-20
+.text {
+  @apply pb-20
 }
 
 button {
