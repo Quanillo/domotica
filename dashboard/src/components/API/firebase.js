@@ -71,9 +71,6 @@ export const updateRoomDisp = (ref, id, value) => updateDoc(doc(db, ref, id),{
   room: value
 });
 
-export const onGetRooms = (user, callback) => 
-  onSnapshot(query(collection(db, "usuarios"),  where("name","==", user)), callback);
-
 export const addRoom = (ref, id, room) => updateDoc(doc(db, ref, id),{
   rooms: arrayUnion(room)
 });
@@ -81,6 +78,9 @@ export const addRoom = (ref, id, room) => updateDoc(doc(db, ref, id),{
 export const removeRoom = (ref, id, room) => updateDoc(doc(db, ref, id),{
   rooms: arrayRemove(room)
 });
+
+export const onGetRooms = (user, callback) => 
+  onSnapshot(query(collection(db, "usuarios"),  where("name","==", user)), callback);
 
 export const updateRoom = (ref, id, value) => updateDoc(doc(db, ref, id),{
   room: value

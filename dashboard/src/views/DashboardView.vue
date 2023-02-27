@@ -28,7 +28,6 @@ onMounted(() => {
         })
         dispList.value = list;
     })
-    console.log(dispList.value)
 })
 </script>
 

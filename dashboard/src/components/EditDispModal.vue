@@ -38,7 +38,7 @@
 
   const updateDisp = () => {
     if(newName.value != ''){
-      updateNameDisp('dispositivos', props.dispSelected.id, newRoom.value)
+      updateNameDisp('dispositivos', props.dispSelected.id, newName.value)
     }
 
     if(newRoom.value != ''){

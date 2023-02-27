@@ -22,13 +22,26 @@
             <button @click="deleteRoom">delete</button>
         </div>
     </div>
+
+    <div>
+        <h3>Rename room</h3>
+        <p>Name</p>
+        <select name="rooms" id="rooms" v-model="changedRoom">
+            <option v-for="room in props.roomList">{{ room }}</option>
+        </select><br>
+        <p>New name</p>
+        <input type="text" v-model="newName"><br>
+        <div class="buttons">
+            <button @click="renameRoom">rename</button>
+        </div>
+    </div>
 </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useUserStore } from '../stores/user'
-import { addRoom, removeRoom, updateRoom } from '../components/API/firebase';
+import { addRoom, removeRoom, updateRoom, updateRoomDisp } from '../components/API/firebase';
 
 const userP = useUserStore()
 
@@ -40,6 +53,9 @@ const props = defineProps({
 const newRoom = ref('')
 const selectedRoom = ref('')
 
+const newName = ref('')
+const changedRoom = ref('')
+
 const pushRoom = () => {
     if(newRoom.value !== ''){
         addRoom('usuarios', userP.user.id, newRoom.value)
@@ -49,12 +65,25 @@ const pushRoom = () => {
 
 const deleteRoom = () => {
     removeRoom('usuarios', userP.user.id, selectedRoom.value)
-    props.dispList.value.filter(x=>x.room == selectedRoom.value).map(disp=>{
-        updateRoom('dispositivos', disp.id, '')
+    props.dispList.filter(x=> x.room === selectedRoom.value).map(disp=>{
+        updateRoom('dispositivos', disp.id, 'No room')
     })
     selectedRoom.value = ''
 }
 
+const renameRoom = () => {
+    if(newName.value !== '' && changedRoom.value !== ''){
+        removeRoom('usuarios', userP.user.id, changedRoom.value)
+        addRoom('usuarios', userP.user.id, newName.value)
+        props.dispList.map(x=>{
+            if(x.room === changedRoom.value){
+                updateRoomDisp('dispositivos', x.id, newName.value)
+            }
+        })
+    }
+    newName.value = ''
+    changedRoom.value = ''
+}
 </script>
 
 <style  scoped>
