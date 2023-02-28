@@ -41,12 +41,13 @@ const logOut = () => emits('logOut')
 .modal {
   text-align: center;
   background-color: #FAFCFF;
-  height: 20em;
-  width: 20em;
+  height: 30em;
+    width: 30em;
   margin-top:5%;
   margin-bottom:5%;
   padding: 60px 0;
   border-radius: 20px;
+  @apply flex flex-col justify-center items-center p-2 border-2 rounded-xl border-sky-600  bg-slate-100
 }
 .close {
   @apply h-96 cursor-pointer pt-16 pl-5;

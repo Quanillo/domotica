@@ -1,11 +1,11 @@
 <template>
-    <div class="roomContainer"  v-for="room in userP.user.rooms">
+    <div class="roomContainer"  v-for="room in userP.user.rooms.filter(x=> x !== 'No room')">
         <div class="room">
             <div class="title">
                 <h1>{{ room }}</h1>
             </div>
 
-            <div class="dispositivo" v-for="dispositivo in dispList.filter(x => x.room == room && x.type == 'sensor')">
+            <div class="dispositivo" v-for="dispositivo in dispList.filter(x => x.room == room  && x.type == 'sensor')">
                 <p>{{ dispositivo.name }}</p>
                 <p>{{ dispositivo.param }}</p>
                 <p>{{ dispositivo.value }}</p>

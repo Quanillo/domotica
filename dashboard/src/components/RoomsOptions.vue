@@ -16,7 +16,7 @@
         <h3>Delete room</h3>
         <p>Name</p>
         <select name="rooms" id="rooms" v-model="selectedRoom">
-            <option v-for="room in props.roomList">{{ room }}</option>
+            <option v-for="room in props.roomList.filter(x=> x !== 'No room')">{{ room }}</option>
         </select><br>
         <div class="buttons">
             <button @click="deleteRoom">delete</button>
@@ -25,9 +25,9 @@
 
     <div>
         <h3>Rename room</h3>
-        <p>Name</p>
+        <p>Room</p>
         <select name="rooms" id="rooms" v-model="changedRoom">
-            <option v-for="room in props.roomList">{{ room }}</option>
+            <option v-for="room in props.roomList.filter(x=> x !== 'No room')">{{ room }}</option>
         </select><br>
         <p>New name</p>
         <input type="text" v-model="newName"><br>

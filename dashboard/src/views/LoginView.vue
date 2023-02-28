@@ -39,7 +39,7 @@ const showLogin = ref(true)
     @apply w-full h-full flex flex-col items-center justify-center
 }
 .loginContainer{
-    @apply w-96 h-80 flex flex-col items-center p-2 border-2 rounded-xl border-sky-200 hover:border-sky-600  bg-slate-100
+    @apply w-96 h-96 flex flex-col items-center p-2 border-2 rounded-xl border-sky-200 hover:border-sky-600  bg-slate-100
 }
 button{
     @apply hover:text-sky-600 hover:cursor-pointer text-center;

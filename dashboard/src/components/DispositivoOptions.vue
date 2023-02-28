@@ -33,7 +33,7 @@
     </div>
 
     <div>
-        <h3>Delete dispositivo</h3>
+        <h3>Edit dispositivo</h3>
         <p>Room</p>
         <select name="rooms" id="rooms" v-model="roomSelected">
             <option v-for="room in props.roomList">{{ room }}</option>
@@ -44,7 +44,7 @@
         </select>
         <div class="buttons">
             <button @click="deleteDisp">delete</button>
-            <button @click="updateDisp">Update</button>
+            <button @click="updateDisp">edit</button>
             <EditDispModal v-if="showModal" :dispSelected="dispSelected" @closeModal="closeModal" ></EditDispModal>
         </div>
     </div>

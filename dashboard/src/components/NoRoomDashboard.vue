@@ -1,16 +1,16 @@
 <template>
-    <div class="roomContainer"   v-if="props.dispList.filter(x => x.room == 'No room').length > 0">
+    <div class="roomContainer"   v-if="props.dispList.filter(x => x.room === 'No room').length > 0">
         <div class="title">
             <h1>No room</h1>
         </div>
 
-        <div  class="dispositivo" v-for="dispositivo in props.dispList.filter(x => x.room == '' && x.type == 'sensor')">
+        <div  class="dispositivo" v-for="dispositivo in props.dispList.filter(x => x.room == 'No room' && x.type == 'sensor')">
             <p>{{ dispositivo.name }}</p>
             <p>{{ dispositivo.param }}</p>
             <p>{{ dispositivo.value }}</p>
         </div>
 
-        <div class="dispositivo" v-for="(dispositivo, index) in props.dispList.filter(x => x.room == '' && x.type == 'ejecutor')"
+        <div class="dispositivo" v-for="(dispositivo, index) in props.dispList.filter(x => x.room == 'No room' && x.type == 'ejecutor')"
             :key="index">
             <p>{{ dispositivo.name }}</p>
             <p>{{ dispositivo.state }}</p>
