@@ -6,14 +6,14 @@
             </div>
 
             <div class="dispositivo" v-for="dispositivo in dispList.filter(x => x.room == room  && x.type == 'sensor')">
-                <p>{{ dispositivo.name }}</p>
+                <p class="dispName" @click="openWindowSensor(dispositivo.id)">{{ dispositivo.name }}</p>
                 <p>{{ dispositivo.param }}</p>
                 <p>{{ dispositivo.value }}</p>
             </div>
 
             <div class="dispositivo"
                 v-for="(dispositivo, index) in dispList.filter(x => x.room == room && x.type == 'ejecutor')" :key="index">
-                <p>{{ dispositivo.name }}</p>
+                <p class="dispName" @click="openWindowEjecutor(dispositivo.id)">{{ dispositivo.name }}</p>
                 <p>{{ dispositivo.state }}</p>
                 <div v-if="dispositivo.state" class="inline-flex">
                     <button @click="updateOn(dispositivo.id)" class="buttonOnSelected">
@@ -53,6 +53,15 @@ const updateOff = (id) =>{
 const updateOn = (id) => {
     updateEjecutor('dispositivos', id, true)
 }
+
+const openWindowSensor = (id) => {
+    window.open(`http://localhost:8001/Sensor/${id}`, '_blank');
+}
+
+const openWindowEjecutor = (id) => {
+    window.open(`http://localhost:8001/Ejecutor/${id}`, '_blank');
+}
+
 </script>
 
 <style  scoped>
@@ -86,5 +95,7 @@ p{
 .buttonOffSelected{
     @apply bg-sky-600  text-sky-200 py-0.5 px-4 rounded-r
 }
-
+.dispName{
+    @apply hover:cursor-pointer
+}
 </style>
